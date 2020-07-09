@@ -13,6 +13,8 @@ Basically I found 2 different methods to achieve that goal:
 Some of the stuff I found was rather old, some of it using strange interfaces. 
 At the current state it is a collection of source-code found at different places in the Web.  
 
+## Current state
+
 Right now it uses a functionality found in:  
 https://www.open4me.de/index.php/2016/10/fritzbox-esp8266-laesst-telefon-klingeln/
 
