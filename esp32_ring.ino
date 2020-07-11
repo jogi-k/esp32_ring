@@ -5,15 +5,9 @@
 #include <WiFiClient.h>
 #include <WebServer.h>
 #include <ESPmDNS.h>
+#include <tr064.h>
 
 #include "credential.h"
-
-/*
-const char* SSID = "YOUR_SSID";
-const char* PASSWORD = "YOUR_WLAN_PASSWD";
-const char* FRITZUSER = "YOUR_FRITZUSER";
-const char* FRITZPASS = "YOUR_FRITZPASSWD";
-*/
 
 WebServer server(80);
 
@@ -46,6 +40,12 @@ void setup() {
     NotifyHandSetViaRingTest( 2 );
   });
 
+  server.on("/ringall", []() {
+    server.send(200, "text/plain", "Ring on all Phones");
+    NotifyAllHandSetsViaCallHelp(  );
+  });
+
+
   server.onNotFound(handleNotFound);
 
   server.begin();
@@ -69,8 +69,23 @@ void handleNotFound() {
 
 
 
+void NotifyAllHandSetsViaCallHelp( void )
+{
+  TR064 connection(TR064_PORT, FRITZ_IP, FRITZUSER, FRITZPASS );
 
+  connection.init();
+  String params[][2] = {{"NewX_AVM-DE_PhoneNumber", "**9"}};
+ 
+  String req[][2] = {{}};
+  String params1[][2] = {{}};
+  connection.action("urn:dslforum-org:service:X_VoIP:1","X_AVM-DE_DialNumber", params, 1, req, 0);
 
+ 
+  //Hier können Sie die Zeit, die das Telefon klingelt, in Millisekunden einstellen
+  delay(15000);
+ 
+  connection.action("urn:dslforum-org:service:X_VoIP:1","X_AVM-DE_DialHangup", params1, 1, req, 0);
+}
 
 
 
@@ -148,3 +163,4 @@ bool NotifyHandSetViaRingTest( int HandSet )
  
   return true;
 }
+
