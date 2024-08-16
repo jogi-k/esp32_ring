@@ -37,4 +37,30 @@ here
 
 All these examples are using TR-064 as interface to the Fritzbox.
 
+# Reality : using an ESP8266 
+
+
+* Using an ESP8266
+* on a NodeMCU-Board
+* Using the deep-sleep-examples from  Rui Santos 
+* This was running on batteries 
+* but only for a month or so
+* Reason was the using of a NodeMCU-Board which was using much more power than anticipated
+* Therefore I forgot about the project...
+* Recently I started to need it again.
+* Now have power close to the doorbell
+* So reused the old hw and the old code on ESP8266
+* Still wanted to use deep-sleep 
+* But not ring the phones when power goes up 
+* Or a "ripple" on the power restarts the NodeMCU
+
+==> 
+
+* Current code in esp8266_sleep_ring.ino is THE real running code
+* It was never here in my git-repo, just somehwere on my PC
+* Now it is improved to check the restart-reason
+
+
+Check for reset-reason is new
+
 
